@@ -1,3 +1,10 @@
 <h1>
   {{title}}
 </h1>
+
+<form (submit)="talk()">
+  <input type="text" [(ngModel)]="talkedText">
+  <button>talk</button>
+</form>
+
+{{result}}
