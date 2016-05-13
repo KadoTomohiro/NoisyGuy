@@ -22,9 +22,10 @@ exports = module.exports = function (app) {
                 console.log(new Buffer(binaly));
                 var fileName = (new Date()).getTime() + '.wav';
                 var path = "src/" + fileName;
-                fs.writeFileSync(path, binaly);
-                console.log(fs.existsSync(path));
-                res.send(fileName);
+                fs.writeFile(path, binaly, function (err) {
+                    console.log(err);
+                    res.send(fileName);
+                });
             }
             else {
                 console.log('error: ' + response.statusCode);

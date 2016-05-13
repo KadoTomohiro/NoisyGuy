@@ -13,16 +13,8 @@ var NoisyGuyAppComponent = (function () {
         this.talkedText = 'こんにちわ';
         this.http = http;
         this.params = new http_1.URLSearchParams();
-        //this.params.set('format', 'json');
-        //this.params.set('callback', 'JSONP_CALLBACK');
-        //this.params.set('format', 'wav');
-        //this.params.set('emotion', 'happiness');
-        //this.params.set('emotion_level', '2');
-        //this.params.set('pitch', '100');
-        //this.params.set('speed', '100');
-        //this.params.set('volume', '100');
     }
-    NoisyGuyAppComponent.prototype.talk = function () {
+    NoisyGuyAppComponent.prototype.convert = function () {
         var _this = this;
         this.params.set('text', this.talkedText);
         this.params.set('speaker', 'show');
@@ -30,34 +22,31 @@ var NoisyGuyAppComponent = (function () {
             .get(this.url, { search: this.params })
             .subscribe(function (res) {
             //          var context = new AudioContext();
-            //          var buffer = new Uint16Array(res.text());
+            //          var buffer = (new Uint8Array([].map.call(res.text(), function(c) {
+            //            return c.charCodeAt(0)
+            //          }))).buffer;
+            //          console.log('buffer',buffer);
             //          var audioBuffer;
-            //          context.decodeAudioData(res.text(), function (buf) {
+            //          context.decodeAudioData(buffer, function (buf) {
             //            audioBuffer = buf;
-            //          });
-            //          var source = context.createBufferSource();
-            //          source.buffer = audioBuffer;
+            //            var source = context.createBufferSource();
+            //            console.log(audioBuffer);
+            //            source.buffer = audioBuffer;
             //
             //// 再生準備。contextの持っている再生先に接続
-            //          source.connect(context.destination);
+            //            source.connect(context.destination);
             //
             //// 再生 (引数はtimeout)
-            //          source.noteOn(0);
-            //          //var buffer = new Buffer(res);
-            _this.result = res.text();
-            //          this.result = res.text().replace(/"/g, '');
-            //          console.log(this.result);
+            //            source.start(0);
+            //          });
+            //var buffer = new Buffer(res);
+            //this.result = res.json();
+            _this.result = res.text().replace(/"/g, '');
+            console.log(_this.result);
         }, function (error) { return console.log(error); });
-        //var body = "username=urcoqo00kebdpb4p&
-        //            password=&
-        //            text=${this.talkedText}&
-        //            speaker=show&
-        //            format=wav&
-        //            emotion=happiness&
-        //            emotion_level=2&
-        //            pitch=100&
-        //            speed=100&
-        //            volume=100";
+    };
+    NoisyGuyAppComponent.prototype.talk = function () {
+        this.fileName = this.result;
     };
     NoisyGuyAppComponent = __decorate([
         core_1.Component({

@@ -16,22 +16,14 @@ export class NoisyGuyAppComponent {
   private url: string = 'http://localhost:8000/api/sed/';
   result;
   talkedText: string = 'こんにちわ';
+  fileName: string;
 
   constructor(http: Http) {
     this.http = http;
     this.params = new URLSearchParams();
-    //this.params.set('format', 'json');
-    //this.params.set('callback', 'JSONP_CALLBACK');
-
-    //this.params.set('format', 'wav');
-    //this.params.set('emotion', 'happiness');
-    //this.params.set('emotion_level', '2');
-    //this.params.set('pitch', '100');
-    //this.params.set('speed', '100');
-    //this.params.set('volume', '100');
   }
 
-  talk() {
+  convert() {
     this.params.set('text', this.talkedText);
     this.params.set('speaker', 'show');
 
@@ -40,39 +32,36 @@ export class NoisyGuyAppComponent {
       .subscribe (
         res => {
 //          var context = new AudioContext();
-//          var buffer = new Uint16Array(res.text());
+//          var buffer = (new Uint8Array([].map.call(res.text(), function(c) {
+//            return c.charCodeAt(0)
+//          }))).buffer;
+//          console.log('buffer',buffer);
 //          var audioBuffer;
-//          context.decodeAudioData(res.text(), function (buf) {
+//          context.decodeAudioData(buffer, function (buf) {
 //            audioBuffer = buf;
-//          });
-//          var source = context.createBufferSource();
-//          source.buffer = audioBuffer;
+//            var source = context.createBufferSource();
+//            console.log(audioBuffer);
+//            source.buffer = audioBuffer;
 //
 //// 再生準備。contextの持っている再生先に接続
-//          source.connect(context.destination);
+//            source.connect(context.destination);
 //
 //// 再生 (引数はtimeout)
-//          source.noteOn(0);
-//          //var buffer = new Buffer(res);
-          this.result = res.text();
-//          this.result = res.text().replace(/"/g, '');
-//          console.log(this.result);
+//            source.start(0);
+//          });
+
+          //var buffer = new Buffer(res);
+          //this.result = res.json();
+
+          this.result = res.text().replace(/"/g, '');
+          console.log(this.result);
         },
         error => console.log(error)
       );
+  }
 
-
-
-    //var body = "username=urcoqo00kebdpb4p&
-    //            password=&
-    //            text=${this.talkedText}&
-    //            speaker=show&
-    //            format=wav&
-    //            emotion=happiness&
-    //            emotion_level=2&
-    //            pitch=100&
-    //            speed=100&
-    //            volume=100";
+  talk() {
+    this.fileName = this.result;
   }
 
 
