@@ -6,5 +6,9 @@
   <input type="text" [(ngModel)]="talkedText">
   <button>talk</button>
 </form>
-
-{{result}}
+<pre>
+  {{result}}
+</pre>
+<audio [src]="result" autoplay *ngIf="result">
+  <p>Your browser does not support the <code>audio</code> element.</p>
+</audio>

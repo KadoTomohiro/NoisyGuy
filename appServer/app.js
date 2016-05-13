@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -14,9 +13,7 @@ app.use(function (req, res, next) {
     next();
 });
 // Start server
-server.listen(port, function () {
-    console.log('Express server listening on %d, in %s mode', port, app.get('env'));
-});
+server.listen(port, function () { return console.log('Express server listening on %d, in %s mode', port, app.get('env')); });
 // API definition
 require('./api/sed/sed')(app);
 exports = module.exports = app;
